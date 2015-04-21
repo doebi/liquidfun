@@ -1,0 +1,6 @@
+
+var Box2D = {SCALE:0.1};
+
+ig.module('plugins.liquidfun.lib').defines(function(){
+	// For Impact's module loader
+});

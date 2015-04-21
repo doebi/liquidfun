@@ -146,6 +146,8 @@ B2PARTICLEGROUP = \
 
 B2PARTICLESYSTEM = \
 	'_b2ParticleSystem_CreateParticle', \
+	'_b2ParticleSystem_GetBodyContacts', \
+	'_b2ParticleSystem_GetBodyContactCount', \
 	'_b2ParticleSystem_GetColorBuffer', \
 	'_b2ParticleSystem_GetParticleCount', \
 	'_b2ParticleSystem_GetParticleLifetime', \

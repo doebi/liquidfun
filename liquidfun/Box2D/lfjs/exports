@@ -1,0 +1,2 @@
+export EMSCRIPTEN=/home/doebi/wd/emscripten
+export CLOSURE_JAR=/home/doebi/wd/closure/compiler.jar

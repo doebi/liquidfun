@@ -15,7 +15,8 @@ function TestSensorTest() {
   var sd = new b2FixtureDef;
   sd.SetAsBoxXYCenterAngle(10.0, 2.0, new b2Vec2(0.0, 20.0), 0.0);
   sd.isSensor = true;
-  this.sensor = ground.CreateFixture(sd);*/
+  this.sensor = ground.CreateFixture(sd);
+  */
 
   // create sensor
   shape = new b2CircleShape;

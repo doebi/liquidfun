@@ -7,6 +7,8 @@ double b2ParticleSystem_CreateParticle(void* particleSystem,
     double flags, double group, double lifetime, double positionX,
     double positionY, double userData, double velocityX, double velocityY);
 
+    void* b2ParticleSystem_GetBodyContacts(void* particleSystem);
+    double b2ParticleSystem_GetBodyContactCount(void* particleSystem);
     void* b2ParticleSystem_GetColorBuffer(void* particleSystem);
     double b2ParticleSystem_GetParticleCount(void* particleSystem);
     double b2ParticleSystem_GetParticleLifetime(void* particleSystem, double index);

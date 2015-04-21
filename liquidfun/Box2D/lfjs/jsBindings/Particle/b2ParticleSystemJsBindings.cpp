@@ -20,6 +20,18 @@ double b2ParticleSystem_CreateParticle(void* particleSystem,
 
 // Shapes array is not currently supported for b2ParticleSystems
 
+void* b2ParticleSystem_GetBodyContacts(void* particleSystem) {
+    b2ParticleSystem* sys = ((b2ParticleSystem*)particleSystem);
+    const b2ParticleBodyContact* contacts = sys->GetBodyContacts();
+    int count = sys->GetBodyContactCount();
+    for (int i = 0; i < count; ++i) {
+
+    }
+    return (void*)contacts;
+}
+double b2ParticleSystem_GetBodyContactCount(void* particleSystem) {
+  return ((b2ParticleSystem*)particleSystem)->GetBodyContactCount();
+}
 void* b2ParticleSystem_GetColorBuffer(void* particleSystem) {
   return ((b2ParticleSystem*)particleSystem)->GetColorBuffer();
 }
@@ -30,7 +42,6 @@ double b2ParticleSystem_GetParticleCount(void* particleSystem) {
 double b2ParticleSystem_GetParticleLifetime(void* particleSystem, double index){
   return ((b2ParticleSystem*)particleSystem)->GetParticleLifetime((int)index);
 }
-
 void* b2ParticleSystem_GetPositionBuffer(void* particleSystem) {
   return ((b2ParticleSystem*)particleSystem)->GetPositionBuffer();
 }

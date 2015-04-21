@@ -31,6 +31,12 @@ var b2ParticleSystem_CreateParticle =
     'number', 'number', 'number'
   ]);
 
+var b2ParticleSystem_GetBodyContacts =
+  Module.cwrap('b2ParticleSystem_GetBodyContacts', 'number', ['number']);
+
+var b2ParticleSystem_GetBodyContactCount =
+  Module.cwrap('b2ParticleSystem_GetBodyContactCount', 'number', ['number']);
+
 var b2ParticleSystem_GetColorBuffer =
   Module.cwrap('b2ParticleSystem_GetColorBuffer', 'number', ['number']);
 
@@ -67,20 +73,22 @@ var b2ParticleSystem_SetRadius =
 /** @constructor */
 function b2ParticleSystem(ptr) {
   this.dampingStrength = 1.0;
-  // is this a sane default for density?
   this.density = 1.0;
   this.ptr = ptr;
   this.particleGroups = [];
+  this.particlesLookup = {};
   this.radius = 1.0;
   this.gravityScale = 1.0;
 }
 
 b2ParticleSystem.prototype.CreateParticle = function(pd) {
-  return b2ParticleSystem_CreateParticle(this.ptr,
+  var particle = b2ParticleSystem_CreateParticle(this.ptr,
     pd.color.r, pd.color.g, pd.color.b,
     pd.color.a, pd.flags, pd.group,
     pd.lifetime, pd.position.x, pd.position.y,
     pd.userData, pd.velocity.x, pd.velocity.y);
+  this.particlesLookup[particle.ptr] = particle;
+  return particle;
 };
 
 b2ParticleSystem.prototype.CreateParticleGroup = function(pgd) {
@@ -91,6 +99,23 @@ b2ParticleSystem.prototype.CreateParticleGroup = function(pgd) {
 
 b2ParticleSystem.prototype.DestroyParticlesInShape = function(shape, xf) {
   return shape._DestroyParticlesInShape(this, xf);
+};
+
+b2ParticleSystem.prototype.GetBodyContactCount = function() {
+    return b2ParticleSystem_GetBodyContactCount(this.ptr);
+};
+
+b2ParticleSystem.prototype.GetBodyContacts = function() {
+    var count = b2ParticleSystem_GetBodyContactCount(this.ptr);
+    var offset = b2ParticleSystem_GetBodyContacts(this.ptr);
+    var ptrs = new Uint32Array(Module.HEAPU8.buffer, offset, count);
+    var contacts = [];
+    var particlesLookup = this.particlesLookup;
+    for (var i = 0; i < count; i++) {
+        //contacts.push(particlesLookup[ptrs[i]]);
+        contacts.push(ptrs[i]);
+    }
+    return contacts;
 };
 
 b2ParticleSystem.prototype.GetColorBuffer = function() {
